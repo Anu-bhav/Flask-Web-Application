@@ -1,0 +1,9 @@
+Creating venv for flask
+    pipenv --envs
+    export PIPENV_VENV_IN_PROJECT=1
+    pipenv install flask
+
+setting flask env variables
+    export FLASK_APP=flaskblog.py
+    export FLASK_DEBUG=1
+
