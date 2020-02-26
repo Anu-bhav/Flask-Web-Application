@@ -1,4 +1,4 @@
-Creating venv for flask
+creating venv for flask
     pipenv --envs
     export PIPENV_VENV_IN_PROJECT=1
     pipenv install flask
@@ -9,3 +9,11 @@ setting flask env variables
 
 snippets
     https://github.com/CoreyMSchafer/code_snippets/tree/master/Python/Flask_Blog/snippets
+
+for forms
+    pip install flask-wtf
+
+Set secret key for application, generate random key
+    >>> import secrets
+    >>> secrets.token_hex(16)
+    '8aa2e62480a55d23b269ba558d10bb4d'
