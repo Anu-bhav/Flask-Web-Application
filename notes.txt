@@ -11,9 +11,71 @@ snippets
     https://github.com/CoreyMSchafer/code_snippets/tree/master/Python/Flask_Blog/snippets
 
 for forms
-    pip install flask-wtf
+    pipenv install flask-wtf
 
 Set secret key for application, generate random key
     >>> import secrets
     >>> secrets.token_hex(16)
     '8aa2e62480a55d23b269ba558d10bb4d'
+
+ORM - Object relational mapper - Database with Flask-SQL-Alchemy
+    pipenv install flask-sqlalchemy
+
+to create the Database and add user
+    >>> db.create_all()
+    >>> from flaskblog import User, Post
+    >>> user_1 = User(username='admin', email='admin@blog.com', password='password') 
+    >>> db.session.add(user_1)
+    >>> user_2 = User(username='JohnDoe', email='jdoe@blog.com', password='password')       
+    >>> db.session.add(user_2) 
+    >>> db.session.commit() 
+
+to query the database
+    >>> User.query.all()
+    [User('admin', 'admin@blog.com', 'dafault.jpg'), User('JohnDoe', 'jdoe@blog.com', 'dafault.jpg')]
+    >>> User.query.first()       
+    User('admin', 'admin@blog.com', 'dafault.jpg')
+    >>> User.query.filter_by(username='admin').all()
+    [User('admin', 'admin@blog.com', 'dafault.jpg')]
+    >>> User.query.filter_by(username='admin').first() 
+    User('admin', 'admin@blog.com', 'dafault.jpg')
+    >>> user = User.query.filter_by(username='admin').first() 
+    >>> user
+    User('admin', 'admin@blog.com', 'dafault.jpg')
+    >>> user.id
+    1
+    >>> user = User.query.get(1)
+    >>> user
+    User('admin', 'admin@blog.com', 'dafault.jpg')
+    >>> user.posts
+    []
+    >>> user.id     
+    1
+    >>> post_1 = Post(title='Blog 1', content='this is post 1', user_id=user.id) 
+    >>> post_1
+    User('Blog 1', 'None')
+    >>> post_2 = Post(title='Blog 2', content='this is post 2', user_id=user.id) 
+    >>> post_3 = Post(title='Blog 3', content='this is post 3', user_id=user.id) 
+
+    >>> db.session.add(post_1)  
+    >>> db.session.add(post_2) 
+    >>> db.session.add(post_3) 
+    >>> db.session.commit()
+    >>> user.posts  
+    [User('Blog 1', '2020-02-26 06:43:42.428367'), User('Blog 2', '2020-02-26 06:43:42.431483'), User('Blog 3', '2020-02-26 06:43:42.431483')]
+    >>> for post in user.posts:     
+    ...     print(post.title)
+    ... 
+    Blog 1
+    Blog 2
+    Blog 3
+    >>> post = Post.query.first()
+    >>> post
+    User('Blog 1', '2020-02-26 06:43:42.428367')
+    >>> post.user_id
+    1
+    >>> post.author 
+    User('admin', 'admin@blog.com', 'dafault.jpg')
+    >>> db.drop_all()
+    >>> db.create_all()
+    >>> exit()
