@@ -84,4 +84,6 @@ to query the database
     >>> exit()
 
 Restructuring modules into package
+    create __init__.py in folder with same name as module to make it into a package
+    place all the dependencies in their correct files
     
