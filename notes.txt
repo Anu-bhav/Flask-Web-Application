@@ -86,4 +86,19 @@ to query the database
 Restructuring modules into package
     create __init__.py in folder with same name as module to make it into a package
     place all the dependencies in their correct files
-    
+
+hash password in flask
+    pipenv install flask-bcrypt
+    >>> from flask_bcrypt import Bcrypt
+    >>> bcrypt = Bcrypt()
+    >>> bcrypt.generate_password_hash('testing')
+    b'$2b$12$TkXoywd0XE.dFen4BOPSG.K.aJsNZQ9yHQNEY9d3IhsF7xr21bJim'
+    >>> bcrypt.generate_password_hash('testing').decode('utf-8')
+    '$2b$12$r6koi1z.Kcq7uKmweAmpW.62uG.Gfk8KiJHEzcKHUFo1Ew9631LIu'
+    >>> bcrypt.generate_password_hash('testing').decode('utf-8')
+    >>> hashed_pw = bcrypt.generate_password_hash('testing') 
+    >>> bcrypt.check_password_hash(hashed_pw, 'testing')                                                      
+    True
+    >>> bcrypt.check_password_hash(hashed_pw, 'testing1') 
+    False
+
