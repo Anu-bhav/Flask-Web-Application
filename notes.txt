@@ -119,3 +119,18 @@ populate json file in db
     ...     post = Post(title=item['title'], content=item['content'], user_id=item['user_id'])   
     ...     db.session.add(post)
     ...     db.session.commit()
+
+expiration of tokens
+    >>> from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+    >>> s = Serializer('secret', 30)
+    >>> token = s.dumps({'user_id': 1}).decode('utf-8')
+    >>> token
+    'eyJhbGciOiJIUzUxMiIsImlhdCI6MTU4MjgxNDk2MCwiZXhwIjoxNTgyODE0OTkwfQ.eyJ1c2VyX2lkIjoxfQ.fL3HSlhC3mXNQTIVC0yxXZgKyu9DFA5nN7YuzYx0upBEFYu78_wiCsibvktHm1ut0aIaEnYoGLAnzObWPa5jaA'
+    >>> s.loads(token)
+    {'user_id': 1}
+    >>> s.loads(token) # after 30s, it expires
+    Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+    File "C:\Users\Admin\Documents\Python Development\Flask-Web-Application\.venv\lib\site-packages\itsdangerous\jws.py", line 205, in loads
+        date_signed=self.get_issue_date(header),
+    itsdangerous.exc.SignatureExpired: Signature expired
