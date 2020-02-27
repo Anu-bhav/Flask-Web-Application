@@ -102,3 +102,20 @@ hash password in flask
     >>> bcrypt.check_password_hash(hashed_pw, 'testing1') 
     False
 
+populate json file in db
+    cat ../Djando-Web-Application/posts.json
+    $ python
+    >>> import json
+    >>> from flaskblog import db
+    >>> from flaskblog.models import Post
+    >>> with open('../Djando-Web-Application/posts.json') as json_file:
+    ...     data = json.load(json_file)
+    ...     
+    >>> data
+    .
+    .
+    .
+    >>> for item in data:
+    ...     post = Post(title=item['title'], content=item['content'], user_id=item['user_id'])   
+    ...     db.session.add(post)
+    ...     db.session.commit()
